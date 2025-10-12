@@ -1,6 +1,6 @@
 from sage.all import *
 
-def gausian_lattice_reduction(basis):
+def gausian_lattice_reduction(basis : int[][]):
     """
     reduces a bad basis to retrieve good basis, algo off of cryptohack
     Args:
