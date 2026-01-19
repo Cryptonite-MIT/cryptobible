@@ -1,33 +1,73 @@
-ct = # ciphertext in bytes
-IV = # iv in bytes
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import unpad
 
-def oracle(ciphertext):
-    """sends ciphertext to server to decrypt and returns True or False based on valid or invalid padding"""
+from ...common import xor
 
-def recover_dec_block(iv, block):
-    iv_ = bytearray(iv)
-    dec_block = bytearray(bytes(16))
-    for i in range(15, -1, -1):
-        for x in tqdm(range(257), leave=False, desc=f"Byte {i}/16"):
-            if x == 256:
-                raise Exception('ATTACK FAILED')
-            iv_[i] = x
-            if oracle(bytes(iv_) + bytes(block)):
-                dec_block[i] = x ^ (16 - i)
-                for j in range(i, 16):
-                    iv_[j] = dec_block[j] ^ (16 - i + 1)
+
+def _brute_block(padding_oracle, previous_block, ciphertext):
+    '''
+    Bruteforces a block of ciphertext and returns the plaintext after block decryption
+    Args:
+        padding_oracle(iv, ct)  : the padding oracle function, returns True for correct padding and False otherwise
+        previous_block          : the block before the ciphertext
+        ciphertext              : single ciphertext block to be decrypted
+    
+    Returns:
+        plaintext               : a single block of decrypted, padded plaintext
+    '''
+    known = bytearray()
+    for i in reversed(range(16)): # Byte index of pt being bruted
+        j = 16 - i # Current expected padding byte
+        for b in range(0xff + 1):
+            # Construct iv: empty + bruting_byte + xor(known_part, expected_padding_byte)
+            iv = bytes(i) + b.to_bytes(1) + xor(known, j)[:len(known)]
+            if padding_oracle(iv, ciphertext):
+                # If the padding oracle returns True then the byte is correct
+                byte = int.from_bytes(xor(b, j))
+                known.insert(0, byte)
                 break
-    return dec_block
-        
+        else:
+            raise ValueError(f"Could not find byte for {i = }")
 
-# ct_blocks = [IV] + [ct[i:i+16] for i in range(0, len(ct), 16)]
-# nblocks = len(ct_blocks) - 1
+    return xor(previous_block, known)
 
-# blocks = []
-# for iv, block in zip(ct_blocks[:-1], ct_blocks[1:]):
-#     dec_bloc = recover_dec_block(iv, block)
-#     blocks.append(xor(dec_bloc, iv))
+def padding_oracle_attack(padding_oracle, iv: bytes, ciphertext: bytes) -> bytes:
+    '''
+    Args:
+        padding_oracle(iv, ct)  : the padding oracle function, returns True for correct padding and False otherwise
+        iv                      : initialisation vector
+        ciphertext              : ciphertext to be decrypted
+    
+    Returns:
+        plaintext               : the decrypted, padded plaintext
+    '''
+    plaintext = bytes()
+    # separate ciphertext into blocks of size 16
+    blocks = [ciphertext[i:i+16] for i in range(0, len(ciphertext), 16)]
+    blocks.insert(0, iv) # iv will be used to decrypt block 0 of ciphertext
 
-#     print(blocks)
+    for i in range(len(1, blocks) - 1):
+        plaintext += _brute_block(blocks[i - 1], blocks[i])
+    return plaintext
 
-# print(b''.join(x for x in blocks))
+def test_block():
+    pt = b'flag{TEST}\x06\x06\x06\x06\x06\x06'
+    iv = b'abcd' * 4
+    key = b'KEYWOW!!' * 2
+    c = AES.new(key, AES.MODE_CBC, iv)
+    ct = c.encrypt(pt)
+
+    def oracle(iv, ct):
+        # simple oracle function for padding oracle attack
+        c = AES.new(key, AES.MODE_CBC, iv)
+        try:
+            unpad(c.decrypt(ct), 16)
+        except ValueError:
+            return False
+        return True
+    
+    print(f'Result: {_brute_block(oracle, iv, ct)}')
+
+
+if __name__ == '__main__':
+    test()
