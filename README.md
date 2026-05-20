@@ -22,22 +22,22 @@
 
 - ## AES
   - ### CBC
-    - [ ] [Padding Oracle](src/cryptobible/aes/cbc/padding_oracle.py)
-    - [ ] [Bit Flipping](src/cryptobible/aes/cbc/padding_oracle_bit_flip.py) ([reference](https://www.youtube.com/watch?v=dQw4w9WgXcQ))
+    - [x] [Padding Oracle](src/cryptobible/aes/cbc/padding_oracle.py)
+    - [x] [Bit Flipping](src/cryptobible/aes/cbc/padding_oracle_bit_flip.py) ([reference](https://www.youtube.com/watch?v=dQw4w9WgXcQ))
     - [ ] IV Recovery
     - [ ] CBC-MAC: Length Extension
     - [ ] CBC-MAC: Key-reuse
     - [ ] Side-Channel: Cache-Timing
 
   - ### ECB
-    - [ ] [Encryption Oracle](src/cryptobible/aes/ecb/encryption_oracle.py)
-    - [ ] [Append Secret Block](src/cryptobible/aes/aes-ecb-encryptionoracle.py) (encryption oracle)
+    - [x] [Encryption Oracle](src/cryptobible/aes/ecb/encryption_oracle.py)
+    - [ ] Append Secret Block
 
 - ## RSA
-  - [x] [Common-modulus](src/cryptobible/rsa/common_modulus.py) - same $m, n$, different $e, d$
-  - [x] [Hastad's broadcast](src/cryptobible/rsa/hastads_broadcast.py) - same message, small $e$
-  - [ ] [Coppersmith's small $e$](src/cryptobible/rsa/coppersmiths_small_e.py)
-  - [x] [Weiner's](src/cryptobible/rsa/weiners.py) - small $d$
+  - [x] [Common-modulus](src/cryptobible/rsa/common_modulus_attack.py) - same $m, n$, different $e, d$
+  - [x] [Hastad's broadcast](src/cryptobible/rsa/hastad_broadcast_attack.py) - same message, small $e$
+  - [x] [Coppersmith's small $e$](src/cryptobible/rsa/coppersmith_low_e.py)
+  - [x] [Weiner's](src/cryptobible/rsa/weiners_attack.py) - small $d$
   - [ ] Extended Weiner's
   - [ ] Boneh-Durfee - upgrade to Weiner's
   - [ ] Cherkaoui-Semmouni - primes sharing most of MSBs
@@ -67,7 +67,7 @@
     - [ ] Electromagnetic (EM)
   - ### Non-attacks
     - [ ] Known private exponent - $p$ and $q$ from $d$
-    - [x] [Attacks on phi](src/cryptobible/rsa/non-attacks/rsa-attacks-on-phi.py) - $φ(N)$ from primes
+    - [x] [Attacks on phi](src/cryptobible/rsa/non_attacks/phi.py) - $φ(N)$ from primes
 
 - ## ECC
 <!-- https://github.com/elikaski/ECC_Attacks -->
