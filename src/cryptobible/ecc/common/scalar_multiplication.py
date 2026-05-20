@@ -1,6 +1,6 @@
 # DO NOT import this file into __init__.py as sage already has Elliptic Curves built-in
 
-from point_addition import point_addition
+from .point_addition import point_addition
 
 def scalar_multiplication(P, n, a=497, p=9739):
     O = (None, None)
