@@ -116,7 +116,6 @@
   - [x] [Gaussian Lattice Reduction](src/cryptobible/lattices/gaussian_lattice_reduction.py)
   - [x] [Merkle-Hellman](src/cryptobible/lattices/merkle_hellman.py) (knapsack cryptography)
   - ### LWE
-    - [x] [No Noise](src/cryptobible/lattices/lwe/no_noise.py) (only message)
     - [x] [Low Noise](src/cryptobible/lattices/lwe/low_noise.py) (LLL/BKZ cracking)
     - [ ] Fixed Noise (Aurora-Ge)
 <!-- Note: Below algorithms are very complex -->
