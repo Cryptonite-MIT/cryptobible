@@ -1,6 +1,5 @@
 from sage.all import *
 from math import prod
-import random
 
 def arora_ge(A,b,p,e):
     """

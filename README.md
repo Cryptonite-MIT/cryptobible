@@ -57,7 +57,7 @@
     - [ ] Nitaj's CRT [ ]RSA - Recover $p$ and $q$ for small $d_p$ or $d_q$
     - [ ] Partial key exposure - partial $d$
   - ### Message & Forgery ttacks
-    - [x] Franklin-Reiter Related Message - related $m$'s
+    - [x] [Franklin-Reiter Related Message - related $m$'s](src/cryptobible/rsa/message_and_forgery_attacks/franklin_reiter.py)
     - [ ] Coppersmith's partial known message (stereotyped message attack)
     - [ ] Desmedt-Odlyzko - selective forgery
   - ### Side-channel attacks
@@ -66,7 +66,7 @@
     - [ ] Branch Prediction Analysis (BPA)
     - [ ] Electromagnetic (EM)
   - ### Non-attacks
-    - [ ] Known private exponent - $p$ and $q$ from $d$
+    - [x] [Known private exponent](src/cryptobible/rsa/non_attacks/known_private_exponent.py) - $p$ and $q$ from $d$ ([reference](https://di-mgt.com.au/rsa_factorize_n.html))
     - [x] [Attacks on phi](src/cryptobible/rsa/non_attacks/phi.py) - $φ(N)$ from primes
 
 - ## ECC
@@ -76,7 +76,7 @@
     - [ ] Smooth Order
     - [ ] Almost Smooth Order, Small Private Key
     - [ ] Non-Verfication - point not on curve
-    - [x] Singular Curve
+    - [x] [Singular Curve](src/cryptobible/ecc/singular_curve.py)
     - [ ] Supersingular Curve
     - [ ] Anomalous Curve
   - ## ECDSA
@@ -117,7 +117,7 @@
   - [x] [Merkle-Hellman](src/cryptobible/lattices/merkle_hellman.py) (knapsack cryptography)
   - ### LWE
     - [x] [Low Noise](src/cryptobible/lattices/lwe/low_noise.py) (LLL/BKZ cracking)
-    - [x] Fixed Noise (Arora-Ge)
+    - [x] [Fixed Noise](src/cryptobible/lattices/lwe/fixed_noise.py) (Arora-Ge)
 <!-- Note: Below algorithms are very complex -->
   - ### MLDSA
     - [ ] Fault injection
