@@ -79,8 +79,8 @@
     - [x] Singular Curve
     - [ ] Supersingular Curve
     - [ ] Anomalous Curve
-  - ## ECDSA
-    - [ ] No Message Hashing
+  - ### ECDSA ([notes](notes/ecdsa.md))
+    - [x] [No Message Hashing](src/cryptobible/ecc/ecdsa/no_hash.py)
     - [ ] Reused $k$
     - [ ] Insecure $k$ generation
     - [ ] Invalid generator
@@ -129,4 +129,3 @@
     - [ ] Low-Density Parity-Check - side-channel
     - [ ] Roulette: fault-injection
     - [ ] Error-Tolerant Key Recovery: belief-propagation, lattice-reduction
- 
